@@ -1,0 +1,36 @@
+Search result {{q}}  ,Found {{data}}  
+ <div class="w3-row"> 
+ <!-- Middle Column -->
+    <div class="w3-col m7">
+     
+
+      <div class="w3-container w3-card-2 w3-white w3-round w3-margin" ng-repeat="UserInfo in data2"><br>
+        <img src="images/Koala.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+        <h4>{{UserInfo.name}}</h4><br>
+        <hr class="w3-clear">
+        <p>{{UserInfo.email}}</p>
+        <p>{{UserInfo.about}}</p>
+      </div>
+
+            <ul ng-if="vm.pager.pages.length" class="pagination">
+                <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                    <a ng-click="vm.setPage(1)">First</a>
+                </li>
+                <li ng-class="{disabled:vm.pager.currentPage === 1}">
+                    <a ng-click="vm.setPage(vm.pager.currentPage - 1)">Previous</a>
+                </li>
+                <li ng-repeat="page in vm.pager.pages" ng-class="{active:vm.pager.currentPage === page}">
+                    <a ng-click="vm.setPage(page)">{{page}}</a>
+                </li>                
+                <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                    <a ng-click="vm.setPage(vm.pager.currentPage + 1)">Next</a>
+                </li>
+                <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}">
+                    <a ng-click="vm.setPage(vm.pager.totalPages)">Last</a>
+                </li>
+            </ul>
+       
+      
+    <!-- End Middle Column -->
+    </div>
+    </div>
