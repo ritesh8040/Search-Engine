@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebListener;
 import javax.ws.rs.FormParam;
 
 public class DB {
-	static ConnectionPool conp= new ConnectionPool();
+	
 	public String getDataCount(String search) {
 		String s = "";
 		try {
@@ -24,21 +24,33 @@ public class DB {
 			while (rs.next()) {
 				s = s + rs.getInt(1);
 			}
+			rs.close();
 		} catch (Exception e) {
 
 			e.printStackTrace();
+		}finally{
+			
 		}
 		return s;
 
 	}    
 	
-	public String addPath(String path) {
+	public String addPath(String path) throws Exception {
+		path =Utility.getDomain(path);
 		String s = "";
-		try {
-			String sql = "INSERT INTO path VALUES('" + path + "')";
+		try{
+		ResultSet rs = ConnectionPool.stmt
+				.executeQuery("select count(*) from WEBSITE where path='"+path+"'");
+		int i=0;
+		while (rs.next()) {
+			i=Integer.parseInt(rs.getString(1));
+		}
+		if(i==0){
+			String sql = "INSERT INTO WEBSITE(path) VALUES('" + path + "')";
 			System.out.println(sql);
 			ConnectionPool.stmt.executeUpdate(sql);
 			s="Site Submited - "+ path;
+		}else return "Site Submited";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -18,7 +18,8 @@ import javax.ws.rs.core.Response;
 @Path("/UserService")
 public class UserService {
 
-	DB db=new DB();
+	static ConnectionPool conp= new ConnectionPool();
+	static DB db=new DB();
 	
 	
    @GET
@@ -54,8 +55,10 @@ public class UserService {
    @GET
    @Path("/add")
    @Produces(MediaType.TEXT_PLAIN)
-   public String add(@QueryParam("path") String path){ 
+   public String add(@QueryParam("path") String path) throws Exception{ 
 	   System.out.println(path);
-      return db.addPath(path);
+	   if(Utility.isValidURL(path))   
+        return db.addPath(path);
+	   else return "Invalid Website name.  Example http://google.com";
    } 
 }

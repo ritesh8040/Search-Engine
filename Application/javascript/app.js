@@ -62,6 +62,7 @@ app.controller('addController', function($scope, $location, $route, $routeParams
   $scope.path="";
     $scope.addPath=function(){
       console.log($scope.path);
+      
         var ur2="http://localhost/App/rest/UserService/add?path="+$scope.path;
 $http({method: 'GET', url: ur2}).
         then(function(response) {
@@ -72,5 +73,7 @@ $http({method: 'GET', url: ur2}).
           $scope.status3 = response.status;
       });
 $scope.path="";
+
+
     };
 });
